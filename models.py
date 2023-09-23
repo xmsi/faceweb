@@ -20,11 +20,13 @@ class Base:
 
 
 class Users(Base):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(String(100))
     payments: Mapped[list['Payment']] = relationship(back_populates='payments', lazy='selectin')
 
 
 class Payment(Base):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     image: Mapped[str] = mapped_column(String(255))
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
